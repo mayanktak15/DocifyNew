@@ -1,0 +1,194 @@
+[
+  {
+    "question": "What is Docify?",
+    "answer": "Docify is a prototype for keeping consultation requests and health information together."
+  },
+  {
+    "question": "How do I create an account?",
+    "answer": "Select Get started and provide your name, phone, email and a password."
+  },
+  {
+    "question": "How do I log in?",
+    "answer": "Choose Log in and enter the email and password for your account."
+  },
+  {
+    "question": "How do I submit a consultation?",
+    "answer": "Sign in, open your dashboard and describe your symptoms in the new consultation form."
+  },
+  {
+    "question": "Can a doctor review my consultation?",
+    "answer": "Clinician review is available in the prototype, but it is not connected to a real clinical service."
+  },
+  {
+    "question": "How do I see my consultations?",
+    "answer": "Your dashboard lists your saved consultations and their current status."
+  },
+  {
+    "question": "How do I remove a consultation?",
+    "answer": "On your dashboard, choose Remove on the consultation you want to remove."
+  },
+  {
+    "question": "How do I edit my health profile?",
+    "answer": "Sign in and select Profile to update your health details."
+  },
+  {
+    "question": "Where can I see clinician notes?",
+    "answer": "Notes added in the prototype appear on the relevant consultation in your dashboard."
+  },
+  {
+    "question": "Is Docify for emergencies?",
+    "answer": "No. In an emergency, contact local emergency services or seek immediate in-person help."
+  },
+  {
+    "question": "What is the chatbot for?",
+    "answer": "The assistant answers basic questions about using the prototype. It does not diagnose or prescribe."
+  },
+  {
+    "question": "How do I log out?",
+    "answer": "Use the Log out button in the navigation bar."
+  },
+  {
+    "question": "How do I change consultation priority?",
+    "answer": "Open Edit consultation on a pending request, select the priority, and save your changes."
+  },
+  {
+    "question": "How do I view my prescription?",
+    "answer": "If a clinician adds a prescription in the prototype, it appears on the relevant consultation."
+  },
+  {
+    "question": "How is a consultation status updated?",
+    "answer": "A clinician account can change the status in the clinician queue."
+  },
+  {
+    "question": "Can I download my consultation records?",
+    "answer": "Choose Download CSV on your dashboard."
+  },
+  {
+    "question": "Does a CSV include deleted requests?",
+    "answer": "Only non-deleted consultations appear in the export."
+  },
+  {
+    "question": "What columns are exported?",
+    "answer": "The CSV includes symptoms, status, priority, notes, prescription and timestamps."
+  },
+  {
+    "question": "What is the CSV export limit?",
+    "answer": "Each export supports up to 5,000 consultations."
+  },
+  {
+    "question": "Can I edit a pending request?",
+    "answer": "Choose Edit consultation on its dashboard card."
+  },
+  {
+    "question": "Can I edit after review starts?",
+    "answer": "Patient editing ends when review begins."
+  },
+  {
+    "question": "Where are my notifications?",
+    "answer": "Open Notifications from the navigation bar."
+  },
+  {
+    "question": "How do I mark an update as read?",
+    "answer": "Choose Mark as read on the notification."
+  },
+  {
+    "question": "Does Docify send text alerts?",
+    "answer": "Consultation updates currently appear inside Docify."
+  },
+  {
+    "question": "Where can I see past chats?",
+    "answer": "Open Chat history while signed in."
+  },
+  {
+    "question": "How can I delete a chat entry?",
+    "answer": "Choose Delete this entry in Chat history."
+  },
+  {
+    "question": "Are anonymous questions saved?",
+    "answer": "The web assistant stores chat history only for signed-in accounts."
+  },
+  {
+    "question": "Will deleting history erase existing backups?",
+    "answer": "Existing backups may still contain deleted entries."
+  },
+  {
+    "question": "How do I change my password?",
+    "answer": "Open Profile and enter your current password and the new password twice."
+  },
+  {
+    "question": "What happens after a password change?",
+    "answer": "Sign in again. Existing sessions and API tokens are revoked."
+  },
+  {
+    "question": "How can I sign out every browser?",
+    "answer": "Open Profile and choose Sign out all browsers."
+  },
+  {
+    "question": "Does logging out revoke my API token?",
+    "answer": "Use the API token revocation control in Profile to revoke tokens."
+  },
+  {
+    "question": "How long is an API token valid?",
+    "answer": "Tokens expire after 24 hours unless revoked earlier."
+  },
+  {
+    "question": "How do I revoke one bearer token?",
+    "answer": "Send an authenticated POST request to /api/v1/auth/revoke."
+  },
+  {
+    "question": "Where do clinicians find requests?",
+    "answer": "Clinician accounts can open the clinician queue."
+  },
+  {
+    "question": "How is a clinician assigned?",
+    "answer": "A clinician claims an available request in the queue."
+  },
+  {
+    "question": "What is visible before claiming a request?",
+    "answer": "The available queue shows the request ID, date and priority."
+  },
+  {
+    "question": "How can a clinician release a request?",
+    "answer": "Use Return to available queue on an assigned in-review consultation."
+  },
+  {
+    "question": "Can completed requests be released?",
+    "answer": "Only in-review requests can be returned to the queue."
+  },
+  {
+    "question": "Who sees the review notes?",
+    "answer": "The patient and assigned clinician can view the consultation details."
+  },
+  {
+    "question": "How do I record allergies?",
+    "answer": "Open Profile, fill in Allergies and save."
+  },
+  {
+    "question": "Where do I record medical history?",
+    "answer": "Enter the details under Medical history in Profile."
+  },
+  {
+    "question": "Where can I enter my blood group?",
+    "answer": "Use the Blood group field in Profile."
+  },
+  {
+    "question": "Is a response time guaranteed?",
+    "answer": "This prototype has no guaranteed response time."
+  },
+  {
+    "question": "Does the assistant prescribe medication?",
+    "answer": "The assistant answers platform questions. Consult a qualified clinician about medication."
+  },
+  {
+    "question": "Can I upload medical images?",
+    "answer": "The consultation form currently accepts a text description."
+  },
+  {
+    "question": "Can I book a video call?",
+    "answer": "Video appointments are unavailable in this prototype."
+  },
+  {
+    "question": "How do I check service readiness?",
+    "answer": "The /ready endpoint reports database, schema and rate-limit store status."
+  }
+]

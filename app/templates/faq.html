@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<section class="wrap narrow page"><h1>Common questions</h1><div class="panel faq">{% for entry in entries %}<details><summary>{{ entry.question }}</summary><p>{{ entry.answer }}</p></details>{% endfor %}</div></section>{% endblock %}

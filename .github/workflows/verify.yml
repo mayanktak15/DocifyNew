@@ -1,0 +1,45 @@
+name: Verify Docify
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: docify
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 3s --health-timeout 3s --health-retries 15
+      redis:
+        image: redis:7
+        ports: ['6379:6379']
+    env:
+      DATABASE_URL: postgresql+psycopg://postgres:ci-only@localhost/docify
+      DOCIFY_TEST_REDIS: redis://localhost:6379/14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements/dev.txt -r requirements/bot.txt -r requirements/infra.txt numpy faiss-cpu
+      - run: flask --app app.py db upgrade
+      - run: python -m pytest -q
+      - run: gunicorn --check-config 'app:create_app()'
+      - run: python -c "from app import create_app; assert create_app().test_client().get('/ready').status_code == 200"
+  compose-smoke:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_PASSWORD: ci-only
+      SECRET_KEY: local-ci-only-ephemeral-stack-signing-key
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose config --quiet
+      - run: docker compose up -d --wait db redis
+      - run: docker compose build web
+      - run: docker compose run --rm web flask --app app.py db upgrade
+      - run: docker compose up --build -d --wait --wait-timeout 120 web worker scheduler
+      - run: curl --fail --retry 3 http://localhost:5000/ready
+      - run: docker compose exec -T worker python -c "from tasks import refresh_faq; assert refresh_faq.apply_async(ignore_result=False).get(timeout=30) >= 48"
+      - if: always()
+        run: docker compose down --volumes

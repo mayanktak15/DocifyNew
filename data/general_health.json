@@ -1,0 +1,22 @@
+[
+  {
+    "question": "How much water should I drink to stay hydrated?",
+    "answer": "Most people should drink enough throughout the day for their urine to be pale yellow. Fluid needs vary with heat, activity and illness; follow your clinician’s advice if you have been told to restrict fluids. More information: https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/water-drinks-nutrition/",
+    "category": "general_health"
+  },
+  {
+    "question": "How can I sleep better?",
+    "answer": "Try going to bed and getting up at similar times each day, and limit caffeine in the evening. If sleep problems persist, speak with a clinician. More information: https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/how-to-fall-asleep-faster-and-sleep-better/",
+    "category": "general_health"
+  },
+  {
+    "question": "What is a healthy balanced diet?",
+    "answer": "A balanced diet includes a variety of foods, including fruit and vegetables, and choosing lower-sugar drinks. Your needs may differ; a clinician or dietitian can provide individual advice. More information: https://www.nhs.uk/live-well/eat-well/how-to-eat-a-balanced-diet/eight-tips-for-healthy-eating/",
+    "category": "general_health"
+  },
+  {
+    "question": "How can I reduce tiredness and fatigue?",
+    "answer": "Regular sleep, balanced meals, hydration and physical activity can help with tiredness. Speak with a clinician if fatigue persists or concerns you. More information: https://www.nhs.uk/live-well/sleep-and-tiredness/self-help-tips-to-fight-fatigue/",
+    "category": "general_health"
+  }
+]

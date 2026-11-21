@@ -1,0 +1,14 @@
+[Unit]
+Description=Back up Docify PostgreSQL database
+After=network-online.target
+[Service]
+Type=oneshot
+User=docify
+WorkingDirectory=/opt/docify
+EnvironmentFile=/etc/docify/backup.env
+ExecStart=/bin/sh /opt/docify/deploy/backup.sh
+StateDirectory=docify-backups
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true

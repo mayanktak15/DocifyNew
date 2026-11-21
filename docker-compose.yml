@@ -1,0 +1,108 @@
+x-log-settings: &logs
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+services:
+  db:
+    logging: *logs
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: docify
+      POSTGRES_USER: docify
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docify -d docify"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  redis:
+    logging: *logs
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    command: redis-server --save 60 1
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  web:
+    logging: *logs
+    build: .
+    environment: &app_environment
+      DOCIFY_REDIS_SESSIONS: "true"
+      DOCIFY_FAQ_CACHE: "true"
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-}
+      OLLAMA_URL: ${OLLAMA_URL:-}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-mistral}
+      DOCIFY_ENV: ${DOCIFY_ENV:-development}
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY}
+      DATABASE_URL: postgresql+psycopg://docify:${POSTGRES_PASSWORD}@db:5432/docify
+      REDIS_URL: redis://redis:6379/0
+      RATELIMIT_STORAGE_URI: redis://redis:6379/1
+      SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-false}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
+      TWILIO_WEBHOOK_URL: ${TWILIO_WEBHOOK_URL:-}
+    ports:
+      - "127.0.0.1:5000:5000"
+    depends_on:
+      db: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/ready', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+  worker:
+    logging: *logs
+    build: .
+    command: python -m celery -A tasks.celery_app worker --loglevel=INFO
+    environment:
+      <<: *app_environment
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_FROM: ${SMTP_FROM:-}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+    depends_on:
+      db: {condition: service_healthy}
+      redis: {condition: service_healthy}
+  scheduler:
+    logging: *logs
+    build: .
+    environment: *app_environment
+    command: python -m celery -A tasks.celery_app beat --schedule=/tmp/docify-beat --loglevel=INFO
+    depends_on:
+      redis: {condition: service_healthy}
+  telegram:
+    logging: *logs
+    profiles: [bots]
+    build: .
+    command: python -m bots.telegram_bot
+    environment:
+      <<: *app_environment
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY}
+    depends_on:
+      redis: {condition: service_healthy}
+  discord:
+    logging: *logs
+    profiles: [bots]
+    build: .
+    command: python -m bots.discord_bot
+    environment:
+      <<: *app_environment
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN:-}
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY}
+    depends_on:
+      redis: {condition: service_healthy}
+volumes:
+  redis_data:
+  postgres_data:

@@ -1,0 +1,4 @@
+-r base.txt
+celery[redis]>=5.4,<6
+redis>=5,<7
+Flask-Session>=0.8,<1

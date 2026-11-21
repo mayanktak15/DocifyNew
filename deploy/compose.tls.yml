@@ -1,0 +1,20 @@
+services:
+  web:
+    environment:
+      DOCIFY_ENV: production
+      SESSION_COOKIE_SECURE: "true"
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      DOCIFY_DOMAIN: ${DOCIFY_DOMAIN:?Set DOCIFY_DOMAIN to the deployment hostname}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - tls_data:/data
+    depends_on:
+      web: {condition: service_healthy}
+volumes:
+  tls_data:

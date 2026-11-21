@@ -1,0 +1,23 @@
+
+  Done! I've read your entire Docify codebase and created a complete blueprint/ folder with 15 documents (~4,400 lines total) inside your repo.
+  
+  What's inside:
+  
+   File                                                                            │ What it does
+  ─────────────────────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────
+   prompt.md                                                                       │ Master AI prompt — paste it into any AI agent to generate the whole project
+   skills.md                                                                       │ All required tech skills (Python, Flask, PostgreSQL, Redis, FAISS, bots)
+   workflow.md                                                                     │ 9-phase step-by-step build guide (Day 1 → Day 7)
+   system-design/hld.md                                                            │ Full architecture diagram with component descriptions
+   system-design/lld.md                                                            │ Class diagrams, sequence diagrams, function signatures (with Mermaid)
+   system-design/system-design.md                                                  │ ER diagram, tech decisions, caching architecture, scaling strategy
+   docs/bot-integration.md                                                         │ Telegram + WhatsApp + Discord bot code, setup, and Docker config
+   docs/database-design.md                                                         │ PostgreSQL SQL schemas + Redis key design + migration strategy
+   docs/ml-pipeline.md                                                             │ FAISS + embeddings + rank fusion + LLM provider chain deep-dive
+   docs/api-reference.md                                                           │ Full REST API docs with request/response examples
+   docs/deployment.md                                                              │ Docker Compose, Nginx, backup/restore commands
+   docs/security.md                                                                │ 10-layer defense, auth, CSRF, rate limiting, audit logging checklist
+   prompts/                                                                        │ Chatbot system prompt + RAG template with examples
+  
+  The prompt.md is the most powerful file — you can paste it directly into an AI coding agent to scaffold the entire Docify v2 project with PostgreSQL, Redis, FAISS,
+  Celery, and all three bot integrations in one shot.
